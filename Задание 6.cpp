@@ -3,68 +3,6 @@
 
 using namespace std;
 
-template<class T>
-void quickSortR(T* a, long N) {
-    // На входе - массив a[], a[N] - его последний элемент.
-
-    long j = N, i = 0;            // поставить указатели на исходные места
-    T temp, p;
-
-    p = a[N >> 1];                // центральный элемент
-
-    // процедура разделения
-    do {
-        while (a[i] < p) {
-            i++;
-        }
-        while (a[j] > p) {
-            j--;
-        }
-
-        if (i <= j) {
-            temp = a[i]; a[i] = a[j]; a[j] = temp;
-            i++; j--;
-        }
-    } while (i <= j);
-
-    // рекурсивные вызовы, если есть, что сортировать
-    if (j > 0) quickSortR(a, j);
-    if (N > i) quickSortR(a + i, N - i);
-}
-template<class T>
-int quickSortRf(T* a, long N, int n) {
-    // На входе - массив a[], a[N] - его последний элемент.
-    int counter = 0;
-    int counter2 = 0;
-    long j = N, i = 0;            // поставить указатели на исходные места
-    T temp, p;
-
-    p = a[N >> 1];                // центральный элемент
-
-    // процедура разделения
-    do {
-        while (a[i] < p) {
-            i++;
-            counter++;
-        }
-        while (a[j] > p) {
-            j--;
-            counter++;
-        }
-
-        if (i <= j) {
-            temp = a[i]; a[i] = a[j]; a[j] = temp;
-            i++; j--;
-            counter2++;
-        }
-    } while (i <= j);
-
-    // рекурсивные вызовы, если есть, что сортировать
-    if (j > 0) quickSortR(a, j);
-    if (N > i) quickSortR(a + i, N - i);
-    if (n == 1) return counter;
-    if (n == 2) return counter2;
-}
 int main() {
     setlocale(LC_ALL, "Russian");
     //Размерность массива
@@ -203,22 +141,25 @@ int main() {
     //Сортировка МЕТОДОМ ВСТАВКИ
     cout << "Метод ВСТАВКИ" << endl;
     int sravneniya3 = 0, perestanovki3 = 0;
-    for (int i = 0; i < a; i++) {
-        //Алгоритм сортировки
-        int newElement, location;
-        for (int j = 1; j < a; j++) {
-            newElement = arr[i][j];
-            location = j - 1;
-            while (location >= 0 && arr[i][location] < newElement) {
+
+    int tmp, pos;
+    for (int i = 0; i < a; ++i) { // i - номер текущей строки
+        for (int j = 0; j < a; ++j) { // j - номер текущего шага 
+            pos = j;
+            tmp = arr[i][j];
+            for (int h = j + 1; h < a; ++h) { // цикл выбора наименьшего элемента
                 sravneniya3++;
-                arr[i][location + 1] = arr[i][location];
-                perestanovki3++;
-                location = location - 1;
+                if (arr[i][h] < tmp) {
+                    perestanovki3++;
+                    pos = h;
+                    tmp = arr[i][h];
+                }
             }
-            arr[i][location + 1] = newElement;
-            perestanovki3++;
+            arr[i][pos] = arr[i][j];
+            arr[i][j] = tmp; // меняем местами наименьший с a[i]
         }
     }
+
     for (int j = 0; j < a; j++) {
         //Алгоритм сортировки
         int newElement, location;
@@ -226,7 +167,7 @@ int main() {
             newElement = arr[i][j];
             location = i - 1;
             while (location >= 0 && arr[location][j] < newElement) {
-                sravneniya3++;
+                //sravneniya3++;
                 arr[location + 1][j] = arr[location][j];
                 perestanovki3++;
                 location = location - 1;
@@ -244,7 +185,6 @@ int main() {
     }
     cout << "Сравнений " << sravneniya3 << "\t" << "Перестановок " << perestanovki3 << endl << endl;
 
-
     //Присвоение старых значений массиву
     for (int i = 0; i < a; i++) {
         for (int j = 0; j < b; j++) {
@@ -254,23 +194,41 @@ int main() {
     //Сортировка ШЕЛЛА
     cout << "Метод ШЕЛЛА" << endl;
     int sravneniya4 = 0, perestanovki4 = 0;
-    for (int i = 0; i < a; i++) {
-        //Алгоритм сортировки
-        int step = a / 2;
-        while (step > 0) {
-            for (int f = 0; f < (a - step); f++) {
-                int j = f;
-                while (j >= 0 && arr[i][j] < arr[i][j + step]) {
+
+    int i, j, step;
+    int tmp1;
+    for (int p = 0; p < a; p++) {
+        for (step = a / 2; step > 0; step /= 2) {
+            for (i = step; i < a; i++) {
+                tmp1 = arr[p][i];
+                for (j = i; j >= step; j -= step) {
                     sravneniya4++;
-                    int temp = arr[i][j];
-                    arr[i][j] = arr[i][j + step];
-                    arr[i][j + step] = temp;
-                    perestanovki4++;
-                    j--;
+                    if (tmp1 < arr[p][j - step]) {
+                        arr[p][j] = arr[p][j - step];
+                        perestanovki4++;
+                    }
+                    else
+                        break;
                 }
-                if (j < 0 && arr[i][j] >= arr[i][j + step]) sravneniya4++;
+                arr[p][j] = tmp1;
             }
-            step = step / 2;
+        }
+    }
+    for (int p = 0; p < a; p++) {
+        for (step = a / 2; step > 0; step /= 2) {
+            for (i = step; i < a; i++) {
+                tmp1 = arr[i][p];
+                for (j = i; j >= step; j -= step) {
+                    sravneniya4++;
+                    if (tmp1 > arr[j - step][p]) {
+                        arr[j][p] = arr[j - step][p];
+                        perestanovki4++;
+                    }
+                    else
+                        break;
+                }
+                arr[j][p] = tmp1;
+            }
         }
     }
     //Вывод
@@ -294,13 +252,8 @@ int main() {
     for (int i = 0; i < a; i++) {
         for (int j = 0; j < b; j++) {
             //Алгоритм сортировки
-            quickSortR(arr2, 9);
-            //cout << arr[i][j] << "\t";
         }
-        cout << endl << endl;
     }
-    sravneniya5 = quickSortRf(arr2, 9, 1);
-    perestanovki5 = quickSortRf(arr2, 9, 2);
     //Вывод
     for (int i = 0; i < a; i++) {
         for (int j = 0; j < b; j++) {
@@ -319,7 +272,7 @@ int main() {
     cout << "  Сортировка ПУЗЫРЬКОВАЯ                 " << sravneniya1 << "                         " << perestanovki1 << "             " << endl;
     cout << "  Сортировка ОТБОРОМ                     " << sravneniya2 << "                         " << perestanovki2 << "             " << endl;
     cout << "  Сортировка ВСТАВКАМИ                   " << sravneniya3 << "                         " << perestanovki3 << "             " << endl;
-    cout << "  Сортировка ШЕЛЛА                       " << sravneniya4 << "                         " << sravneniya4 << "             " << endl;
+    cout << "  Сортировка ШЕЛЛА                       " << sravneniya4 << "                         " << perestanovki4 << "             " << endl;
     cout << "  Сортировка БЫСТРАЯ                     " << sravneniya5 << "                         " << sravneniya5 << "             " << endl;
 
     printf("=====================================================================================\n");
@@ -329,5 +282,6 @@ int main() {
 
     return 0;
 }
+
 
 
