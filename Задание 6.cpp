@@ -2,18 +2,18 @@
 #include <stdio.h>
 using namespace std;
 
-int sravneniya5 = 0, perestanovki5 = 0;
+int sravneniya5 = 0, perestanovki5 = 0, cc = 0;
 
 void sortRowWise(int** arr) {
-    // loop for rows of matrix
+    //  loop for rows of matrix
     for (int i = 0; i < 10; i++) {
-        // loop for column of matrix
+        //  loop for column of matrix
         for (int j = 0; j < 10; j++) {
-            // loop for comparison and swapping
+            //  loop for comparison and swapping
             for (int k = 0; k < 10 - j - 1; k++) {
                 sravneniya5++;
                 if (arr[i][k] > arr[i][k + 1]) {
-                    // swapping of elements
+                    //  swapping of elements
                     int t = arr[i][k];
                     arr[i][k] = arr[i][k + 1];
                     arr[i][k + 1] = t;
@@ -37,6 +37,9 @@ void quicksort_colum(int** matr, int j, int first, int last)
         if (f <= l) //перестановка элементов
         {
             perestanovki5++;
+            if (cc == 100) {
+                perestanovki5 = 0;
+            }
             count = matr[f][j];
             matr[f][j] = matr[l][j];
             matr[l][j] = count;
@@ -48,7 +51,6 @@ void quicksort_colum(int** matr, int j, int first, int last)
     if (first < l) quicksort_colum(matr, j, first, l);
     if (f < last) quicksort_colum(matr, j, f, last);
 }
-
 
 int main() {
     setlocale(LC_ALL, "Russian");
@@ -75,7 +77,7 @@ int main() {
     cout << "Вывод неотсортированного массива" << endl;
     for (int i = 0; i < a; i++) {
         for (int j = 0; j < b; j++) {
-            //arr2[i][j] = 1;
+            //arr2[i][j] = 69;
             arr2[i][j] = rand() % 99 + 1;
             cout << arr2[i][j] << "\t";
         }
@@ -86,6 +88,13 @@ int main() {
     for (int i = 0; i < a; i++) {
         for (int j = 0; j < b; j++) {
             arr[i][j] = arr2[i][j];
+        }
+    }
+    for (int i = 0; i < a; i++) {
+        for (int j = 0; j < b; j++) {
+            if (arr[0][0] == arr[i][j]) {
+                cc++;
+            }
         }
     }
     //Сортировка ПУЗЫРЬКОВАЯ
@@ -169,6 +178,9 @@ int main() {
             }
             swap(arr[startIndex][j], arr[biggestIndex][j]);
             perestanovki2++;
+            if (cc == 100) {
+                perestanovki2 = 0;
+            }
         }
     }
     //Вывод
@@ -222,6 +234,9 @@ int main() {
             }
             arr[location + 1][j] = newElement;
             perestanovki3++;
+            if (cc == 100) {
+                perestanovki3 = 0;
+            }
         }
     }
     //Вывод
