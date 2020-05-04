@@ -1,44 +1,41 @@
 ﻿#include <iostream>
 #include <stdio.h>
+
 using namespace std;
 
-int sravneniya5 = 0, perestanovki5 = 0, cc = 0;
+int s5 = 0, p5 = 0, cc = 0;
 
 void sortRowWise(int** arr) {
-    //  loop for rows of matrix
     for (int i = 0; i < 10; i++) {
-        //  loop for column of matrix
         for (int j = 0; j < 10; j++) {
-            //  loop for comparison and swapping
             for (int k = 0; k < 10 - j - 1; k++) {
-                sravneniya5++;
+                s5++;
                 if (arr[i][k] > arr[i][k + 1]) {
-                    //  swapping of elements
+
                     int t = arr[i][k];
                     arr[i][k] = arr[i][k + 1];
                     arr[i][k + 1] = t;
-                    perestanovki5++;
+                    p5++;
+
                 }
             }
         }
     }
 }
-//сортировка столбцов
-void quicksort_colum(int** matr, int j, int first, int last)
-// j - номер сортируемого столбца quicksort_colum(arr,0,0,9);
-{
+
+void quicksort_colum(int** matr, int j, int first, int last) {
     int mid, count;
     int f = first, l = last;
-    mid = matr[(f + l) / 2][j]; //вычисление опорного элемента
+    mid = matr[(f + l) / 2][j]; 
     do
     {
         while (matr[f][j] > mid) f++;
         while (matr[l][j] < mid) l--;
-        if (f <= l) //перестановка элементов
+        if (f <= l) 
         {
-            perestanovki5++;
+            p5++;
             if (cc == 100) {
-                perestanovki5 = 0;
+                p5 = 0;
             }
             count = matr[f][j];
             matr[f][j] = matr[l][j];
@@ -54,7 +51,8 @@ void quicksort_colum(int** matr, int j, int first, int last)
 
 int main() {
     setlocale(LC_ALL, "Russian");
-    //Размерность массива
+
+    // Размер массива
     int a = 10,
         b = 10;
 
@@ -65,6 +63,7 @@ int main() {
     {
         arr[i] = new int[b];
     }
+
     // Выделение памяти под второй массив
     int** arr2;
     arr2 = new int* [a];
@@ -77,7 +76,6 @@ int main() {
     cout << "Вывод неотсортированного массива" << endl;
     for (int i = 0; i < a; i++) {
         for (int j = 0; j < b; j++) {
-            //arr2[i][j] = 69;
             arr2[i][j] = rand() % 99 + 1;
             cout << arr2[i][j] << "\t";
         }
@@ -90,6 +88,7 @@ int main() {
             arr[i][j] = arr2[i][j];
         }
     }
+
     for (int i = 0; i < a; i++) {
         for (int j = 0; j < b; j++) {
             if (arr[0][0] == arr[i][j]) {
@@ -97,62 +96,74 @@ int main() {
             }
         }
     }
+
+
+
     //Сортировка ПУЗЫРЬКОВАЯ
     cout << "Метод ПУЗЫРЬКОВЫЙ" << endl;
-    int sravneniya1 = 0, perestanovki1 = 0;
+    int s1 = 0, p1 = 0;
     for (int i = 0; i < a; i++) {
         for (int k = 0; k < 10; k++) {
             bool flag = true;
             for (int j = 0; j < b - 1; j++) {
-                //Алгоритм сортировки
-                sravneniya1++;
+
+                // Алгоритм сортировки
+                s1++;
                 if (arr[i][j] > arr[i][j + 1]) {
-                    // меняем элементы местами
+
+                    // Меняем элементы местами
                     flag = false;
                     swap(arr[i][j], arr[i][j + 1]);
-                    perestanovki1++;
+                    p1++;
                 }
             }
             if (flag) { break; }
         }
     }
+
     for (int j = 0; j < a; j++) {
         for (int k = 0; k < 10; k++) {
             bool flag = true;
             for (int i = 0; i < b - 1; i++) {
-                //Алгоритм сортировки
-                sravneniya1++;
+
+                // Алгоритм сортировки
+                s1++;
                 if (arr[i][j] < arr[i + 1][j]) {
-                    // меняем элементы местами
+
+                    // Меняем элементы местами
                     flag = false;
                     swap(arr[i][j], arr[i + 1][j]);
-                    perestanovki1++;
+                    p1++;
                 }
             }
             if (flag) { break; }
         }
     }
-    //Вывод
+
+    // Вывод
     for (int i = 0; i < a; i++) {
         for (int j = 0; j < b; j++) {
             cout << arr[i][j] << "\t";
         }
         cout << endl << endl;
     }
-    cout << "Сравнений " << sravneniya1 << "\t" << "Перестановок " << perestanovki1 << endl << endl;
+    cout << "Сравнений " << s1 << "\t" << "Перестановок " << p1 << endl << endl;
 
 
 
-    //Присвоение старых значений массиву
+    // Присвоение старых значений массиву
     for (int i = 0; i < a; i++) {
         for (int j = 0; j < b; j++) {
             arr[i][j] = arr2[i][j];
         }
     }
-    //Сортировка МЕТОДОМ ОТБОРА
+
+
+
+    // Сортировка МЕТОДОМ ОТБОРА
     cout << "Метод ОТБОРА" << endl;
     int length = a;
-    int sravneniya2 = 0, perestanovki2 = 0;
+    int s2 = 0, p2 = 0;
     for (int i = 0; i < a; i++) {
         for (int startIndex = 0; startIndex < length - 1; ++startIndex) {
             int biggestIndex = startIndex;
@@ -160,13 +171,15 @@ int main() {
                 if (arr[i][currentIndex] < arr[i][biggestIndex]) {
                     biggestIndex = currentIndex;
                 }
-                sravneniya2++;
+                s2++;
             }
             swap(arr[i][startIndex], arr[i][biggestIndex]);
-            perestanovki2++;
+            p2++;
         }
     }
+
     length = a;
+
     for (int j = 0; j < a; j++) {
         for (int startIndex = 0; startIndex < length - 1; ++startIndex) {
             int biggestIndex = startIndex;
@@ -174,23 +187,26 @@ int main() {
                 if (arr[currentIndex][j] > arr[biggestIndex][j]) {
                     biggestIndex = currentIndex;
                 }
-                sravneniya2++;
+                s2++;
             }
             swap(arr[startIndex][j], arr[biggestIndex][j]);
-            perestanovki2++;
+            p2++;
             if (cc == 100) {
-                perestanovki2 = 0;
+                p2 = 0;
             }
         }
     }
-    //Вывод
+
+    // Вывод
     for (int i = 0; i < a; i++) {
         for (int j = 0; j < b; j++) {
             cout << arr[i][j] << "\t";
         }
         cout << endl << endl;
     }
-    cout << "Сравнений " << sravneniya2 << "\t" << "Перестановок " << perestanovki2 << endl << endl;
+    cout << "Сравнений " << s2 << "\t" << "Перестановок " << p2 << endl << endl;
+
+
 
     //Присвоение старых значений массиву
     for (int i = 0; i < a; i++) {
@@ -198,65 +214,72 @@ int main() {
             arr[i][j] = arr2[i][j];
         }
     }
+
+
+
     //Сортировка МЕТОДОМ ВСТАВКИ
     cout << "Метод ВСТАВКИ" << endl;
-    int sravneniya3 = 0, perestanovki3 = 0;
+    int s3 = 0, p3 = 0;
 
     int tmp, pos;
-    for (int i = 0; i < a; ++i) { // i - номер текущей строки
-        for (int j = 0; j < a; ++j) { // j - номер текущего шага
+    for (int i = 0; i < a; ++i) { 
+        for (int j = 0; j < a; ++j) { 
             pos = j;
             tmp = arr[i][j];
-            for (int h = j + 1; h < a; ++h) { // цикл выбора наименьшего элемента
-                sravneniya3++;
+            for (int h = j + 1; h < a; ++h) { 
+                s3++;
                 if (arr[i][h] < tmp) {
-                    perestanovki3++;
+                    p3++;
                     pos = h;
                     tmp = arr[i][h];
                 }
             }
             arr[i][pos] = arr[i][j];
-            arr[i][j] = tmp; // меняем местами наименьший с a[i]
+            arr[i][j] = tmp; 
         }
     }
 
     for (int j = 0; j < a; j++) {
-        //Алгоритм сортировки
         int newElement, location;
         for (int i = 1; i < a; i++) {
             newElement = arr[i][j];
             location = i - 1;
             while (location >= 0 && arr[location][j] < newElement) {
-                //sravneniya3++;
                 arr[location + 1][j] = arr[location][j];
-                perestanovki3++;
+                p3++;
                 location = location - 1;
             }
             arr[location + 1][j] = newElement;
-            perestanovki3++;
+            p3++;
             if (cc == 100) {
-                perestanovki3 = 0;
+                p3 = 0;
             }
         }
     }
-    //Вывод
+
+    // Вывод
     for (int i = 0; i < a; i++) {
         for (int j = 0; j < b; j++) {
             cout << arr[i][j] << "\t";
         }
         cout << endl << endl;
     }
-    cout << "Сравнений " << sravneniya3 << "\t" << "Перестановок " << perestanovki3 << endl << endl;
+    cout << "Сравнений " << s3 << "\t" << "Перестановок " << p3 << endl << endl;
 
-    //Присвоение старых значений массиву
+
+
+    // Присвоение старых значений массиву
     for (int i = 0; i < a; i++) {
         for (int j = 0; j < b; j++) {
             arr[i][j] = arr2[i][j];
         }
     }
-    //Сортировка ШЕЛЛА
+
+
+
+    // Сортировка ШЕЛЛА
     cout << "Метод ШЕЛЛА" << endl;
-    int sravneniya4 = 0, perestanovki4 = 0;
+    int s4 = 0, p4 = 0;
 
     int i, j, step;
     int tmp1;
@@ -265,10 +288,10 @@ int main() {
             for (i = step; i < a; i++) {
                 tmp1 = arr[p][i];
                 for (j = i; j >= step; j -= step) {
-                    sravneniya4++;
+                    s4++;
                     if (tmp1 < arr[p][j - step]) {
                         arr[p][j] = arr[p][j - step];
-                        perestanovki4++;
+                        p4++;
                     }
                     else
                         break;
@@ -277,15 +300,16 @@ int main() {
             }
         }
     }
+
     for (int p = 0; p < a; p++) {
         for (step = a / 2; step > 0; step /= 2) {
             for (i = step; i < a; i++) {
                 tmp1 = arr[i][p];
                 for (j = i; j >= step; j -= step) {
-                    sravneniya4++;
+                    s4++;
                     if (tmp1 > arr[j - step][p]) {
                         arr[j][p] = arr[j - step][p];
-                        perestanovki4++;
+                        p4++;
                     }
                     else
                         break;
@@ -294,22 +318,28 @@ int main() {
             }
         }
     }
-    //Вывод
+
+    // Вывод
     for (int i = 0; i < a; i++) {
         for (int j = 0; j < b; j++) {
             cout << arr[i][j] << "\t";
         }
         cout << endl << endl;
     }
-    cout << "Сравнений " << sravneniya4 << "\t" << "Перестановок " << perestanovki4 << endl << endl;
+    cout << "Сравнений " << s4 << "\t" << "Перестановок " << p4 << endl << endl;
 
-    //Присвоение старых значений массиву
+
+
+    // Присвоение старых значений массиву
     for (int i = 0; i < a; i++) {
         for (int j = 0; j < b; j++) {
             arr[i][j] = arr2[i][j];
         }
     }
-    //Сортировка "БЫСТРАЯ"
+
+
+
+    // Сортировка БЫСТРАЯ
     cout << "Метод \"БЫСТРЫЙ\"" << endl;
 
 
@@ -317,14 +347,20 @@ int main() {
     for (int i = 0; i <= 10; i++) {
         quicksort_colum(arr, i, 0, 9);
     }
-    //Вывод
+
+    // Вывод
     for (int i = 0; i < a; i++) {
         for (int j = 0; j < b; j++) {
             cout << arr[i][j] << "\t";
         }
         cout << endl << endl;
     }
-    cout << "Сравнений " << sravneniya5 << "\t" << "Перестановок " << perestanovki5 << endl << endl;
+    cout << "Сравнений " << s5 << "\t" << "Перестановок " << p5 << endl << endl;
+
+
+
+
+
 
     cout << "Таблица сравнений сортировок: " << endl;
 
@@ -332,13 +368,14 @@ int main() {
     printf("|  Алгоритм сортировки      |  Количество сравнений     |  Количество перестановок  |\n");
     printf("=====================================================================================\n");
 
-    cout << "  Сортировка ПУЗЫРЬКОВАЯ                 " << sravneniya1 << "\t\t\t" << perestanovki1 << "             " << endl;
-    cout << "  Сортировка ОТБОРОМ                     " << sravneniya2 << "\t\t\t" << perestanovki2 << "             " << endl;
-    cout << "  Сортировка ВСТАВКАМИ                   " << sravneniya3 << "\t\t\t" << perestanovki3 << "             " << endl;
-    cout << "  Сортировка ШЕЛЛА                       " << sravneniya4 << "\t\t\t" << perestanovki4 << "             " << endl;
-    cout << "  Сортировка БЫСТРАЯ                     " << sravneniya5 << "\t\t\t" << perestanovki5 << "             " << endl;
+    cout << "  Сортировка ПУЗЫРЬКОВАЯ                 " << s1 << "\t\t\t\t" << p1 << "             " << endl;
+    cout << "  Сортировка ОТБОРОМ                     " << s2 << "\t\t\t\t" << p2 << "             " << endl;
+    cout << "  Сортировка ВСТАВКАМИ                   " << s3 << "\t\t\t\t" << p3 << "             " << endl;
+    cout << "  Сортировка ШЕЛЛА                       " << s4 << "\t\t\t\t" << p4 << "             " << endl;
+    cout << "  Сортировка БЫСТРАЯ                     " << s5 << "\t\t\t\t" << p5 << "             " << endl;
 
     printf("=====================================================================================\n");
+
 
 
 
