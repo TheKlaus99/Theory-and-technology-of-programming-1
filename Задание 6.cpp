@@ -5,13 +5,16 @@ using namespace std;
 
 int s5 = 0, p5 = 0, cc = 0;
 
+// Размер массива
+int a = 10;
+
 void sortRowWise(int** arr) {
-    for (int i = 0; i < 10; i++) {
-        for (int j = 0; j < 10; j++) {
-            for (int k = 0; k < 10 - j - 1; k++) {
+    for (int i = 0; i < a; i++) {
+        for (int j = 0; j < a; j++) {
+            for (int k = 0; k < a - j - 1; k++) {
                 s5++;
                 if (arr[i][k] > arr[i][k + 1]) {
-
+                    
                     int t = arr[i][k];
                     arr[i][k] = arr[i][k + 1];
                     arr[i][k + 1] = t;
@@ -52,16 +55,12 @@ void quicksort_colum(int** matr, int j, int first, int last) {
 int main() {
     setlocale(LC_ALL, "Russian");
 
-    // Размер массива
-    int a = 10,
-        b = 10;
-
     // Выделение памяти под массив
     int** arr;
     arr = new int* [a];
     for (int i = 0; i < a; i++)
     {
-        arr[i] = new int[b];
+        arr[i] = new int[a];
     }
 
     // Выделение памяти под второй массив
@@ -69,13 +68,13 @@ int main() {
     arr2 = new int* [a];
     for (int i = 0; i < a; i++)
     {
-        arr2[i] = new int[b];
+        arr2[i] = new int[a];
     }
 
     //Вывод неотсортированного массива
     cout << "Вывод неотсортированного массива" << endl;
     for (int i = 0; i < a; i++) {
-        for (int j = 0; j < b; j++) {
+        for (int j = 0; j < a; j++) {
             arr2[i][j] = rand() % 99 + 1;
             cout << arr2[i][j] << "\t";
         }
@@ -84,13 +83,13 @@ int main() {
 
     //Присвоение старых значений массиву
     for (int i = 0; i < a; i++) {
-        for (int j = 0; j < b; j++) {
+        for (int j = 0; j < a; j++) {
             arr[i][j] = arr2[i][j];
         }
     }
 
     for (int i = 0; i < a; i++) {
-        for (int j = 0; j < b; j++) {
+        for (int j = 0; j < a; j++) {
             if (arr[0][0] == arr[i][j]) {
                 cc++;
             }
@@ -103,9 +102,9 @@ int main() {
     cout << "Метод ПУЗЫРЬКОВЫЙ" << endl;
     int s1 = 0, p1 = 0;
     for (int i = 0; i < a; i++) {
-        for (int k = 0; k < 10; k++) {
+        for (int k = 0; k < a; k++) {
             bool flag = true;
-            for (int j = 0; j < b - 1; j++) {
+            for (int j = 0; j < a - 1; j++) {
 
                 // Алгоритм сортировки
                 s1++;
@@ -122,9 +121,9 @@ int main() {
     }
 
     for (int j = 0; j < a; j++) {
-        for (int k = 0; k < 10; k++) {
+        for (int k = 0; k < a; k++) {
             bool flag = true;
-            for (int i = 0; i < b - 1; i++) {
+            for (int i = 0; i < a - 1; i++) {
 
                 // Алгоритм сортировки
                 s1++;
@@ -142,7 +141,7 @@ int main() {
 
     // Вывод
     for (int i = 0; i < a; i++) {
-        for (int j = 0; j < b; j++) {
+        for (int j = 0; j < a; j++) {
             cout << arr[i][j] << "\t";
         }
         cout << endl << endl;
@@ -153,7 +152,7 @@ int main() {
 
     // Присвоение старых значений массиву
     for (int i = 0; i < a; i++) {
-        for (int j = 0; j < b; j++) {
+        for (int j = 0; j < a; j++) {
             arr[i][j] = arr2[i][j];
         }
     }
@@ -199,7 +198,7 @@ int main() {
 
     // Вывод
     for (int i = 0; i < a; i++) {
-        for (int j = 0; j < b; j++) {
+        for (int j = 0; j < a; j++) {
             cout << arr[i][j] << "\t";
         }
         cout << endl << endl;
@@ -210,7 +209,7 @@ int main() {
 
     //Присвоение старых значений массиву
     for (int i = 0; i < a; i++) {
-        for (int j = 0; j < b; j++) {
+        for (int j = 0; j < a; j++) {
             arr[i][j] = arr2[i][j];
         }
     }
@@ -259,7 +258,7 @@ int main() {
 
     // Вывод
     for (int i = 0; i < a; i++) {
-        for (int j = 0; j < b; j++) {
+        for (int j = 0; j < a; j++) {
             cout << arr[i][j] << "\t";
         }
         cout << endl << endl;
@@ -270,7 +269,7 @@ int main() {
 
     // Присвоение старых значений массиву
     for (int i = 0; i < a; i++) {
-        for (int j = 0; j < b; j++) {
+        for (int j = 0; j < a; j++) {
             arr[i][j] = arr2[i][j];
         }
     }
@@ -321,7 +320,7 @@ int main() {
 
     // Вывод
     for (int i = 0; i < a; i++) {
-        for (int j = 0; j < b; j++) {
+        for (int j = 0; j < a; j++) {
             cout << arr[i][j] << "\t";
         }
         cout << endl << endl;
@@ -332,7 +331,7 @@ int main() {
 
     // Присвоение старых значений массиву
     for (int i = 0; i < a; i++) {
-        for (int j = 0; j < b; j++) {
+        for (int j = 0; j < a; j++) {
             arr[i][j] = arr2[i][j];
         }
     }
@@ -342,15 +341,14 @@ int main() {
     // Сортировка БЫСТРАЯ
     cout << "Метод \"БЫСТРЫЙ\"" << endl;
 
-
     sortRowWise(arr);
-    for (int i = 0; i <= 10; i++) {
-        quicksort_colum(arr, i, 0, 9);
+    for (int i = 0; i <= a; i++) {
+        quicksort_colum(arr, i, 0, a-1);
     }
 
     // Вывод
     for (int i = 0; i < a; i++) {
-        for (int j = 0; j < b; j++) {
+        for (int j = 0; j < a; j++) {
             cout << arr[i][j] << "\t";
         }
         cout << endl << endl;
