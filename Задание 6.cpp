@@ -3,7 +3,7 @@
 
 using namespace std;
 
-int s5 = 0, p5 = 0, cc = 0;
+double s5 = 0, p5 = 0, set = 0;
 
 // Размер массива
 int a = 10;
@@ -37,7 +37,7 @@ void quicksort_colum(int** matr, int j, int first, int last) {
         if (f <= l) 
         {
             p5++;
-            if (cc == 100) {
+            if (set == 100) {
                 p5 = 0;
             }
             count = matr[f][j];
@@ -91,7 +91,7 @@ int main() {
     for (int i = 0; i < a; i++) {
         for (int j = 0; j < a; j++) {
             if (arr[0][0] == arr[i][j]) {
-                cc++;
+                set++;
             }
         }
     }
@@ -100,7 +100,7 @@ int main() {
 
     //Сортировка ПУЗЫРЬКОВАЯ
     cout << "Метод ПУЗЫРЬКОВЫЙ" << endl;
-    int s1 = 0, p1 = 0;
+    double s1 = 0, p1 = 0;
     for (int i = 0; i < a; i++) {
         for (int k = 0; k < a; k++) {
             bool flag = true;
@@ -139,8 +139,8 @@ int main() {
         }
     }
 
-    // Вывод
-    for (int i = 0; i < a; i++) {
+   // Вывод
+   for (int i = 0; i < a; i++) {
         for (int j = 0; j < a; j++) {
             cout << arr[i][j] << "\t";
         }
@@ -162,7 +162,7 @@ int main() {
     // Сортировка МЕТОДОМ ОТБОРА
     cout << "Метод ОТБОРА" << endl;
     int length = a;
-    int s2 = 0, p2 = 0;
+    double s2 = 0, p2 = 0;
     for (int i = 0; i < a; i++) {
         for (int startIndex = 0; startIndex < length - 1; ++startIndex) {
             int biggestIndex = startIndex;
@@ -190,7 +190,7 @@ int main() {
             }
             swap(arr[startIndex][j], arr[biggestIndex][j]);
             p2++;
-            if (cc == 100) {
+            if (set == 100) {
                 p2 = 0;
             }
         }
@@ -218,7 +218,7 @@ int main() {
 
     //Сортировка МЕТОДОМ ВСТАВКИ
     cout << "Метод ВСТАВКИ" << endl;
-    int s3 = 0, p3 = 0;
+    double s3 = 0, p3 = 0;
 
     int tmp, pos;
     for (int i = 0; i < a; ++i) { 
@@ -250,7 +250,7 @@ int main() {
             }
             arr[location + 1][j] = newElement;
             p3++;
-            if (cc == 100) {
+            if (set == 100) {
                 p3 = 0;
             }
         }
@@ -278,7 +278,7 @@ int main() {
 
     // Сортировка ШЕЛЛА
     cout << "Метод ШЕЛЛА" << endl;
-    int s4 = 0, p4 = 0;
+    double s4 = 0, p4 = 0;
 
     int i, j, step;
     int tmp1;
@@ -339,7 +339,7 @@ int main() {
 
 
     // Сортировка БЫСТРАЯ
-    cout << "Метод \"БЫСТРЫЙ\"" << endl;
+    cout << "Метод БЫСТРЫЙ" << endl;
 
     sortRowWise(arr);
     for (int i = 0; i <= a; i++) {
@@ -354,7 +354,6 @@ int main() {
         cout << endl << endl;
     }
     cout << "Сравнений " << s5 << "\t" << "Перестановок " << p5 << endl << endl;
-
 
 
 
